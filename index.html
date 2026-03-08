@@ -3,21 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SciPost - Educational Video Publisher</title>
+    <title>SciPost - Educational Video Publisher for TikTok</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px 20px; color: #333; line-height: 1.6; }
-        h1 { color: #1a1a2e; }
-        a { color: #0066cc; }
-        .links { margin-top: 30px; }
-        .links a { display: inline-block; margin-right: 20px; padding: 10px 20px; background: #0066cc; color: #fff; text-decoration: none; border-radius: 6px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #333; line-height: 1.6; }
+        .hero { background: linear-gradient(135deg, #0a0a2e 0%, #1a1a4e 100%); color: #fff; padding: 80px 20px; text-align: center; }
+        .hero h1 { font-size: 2.5em; margin-bottom: 16px; }
+        .hero p { font-size: 1.2em; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .content { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin: 40px 0; }
+        .feature { text-align: center; padding: 20px; }
+        .feature .icon { font-size: 2em; margin-bottom: 12px; }
+        .feature h3 { margin-bottom: 8px; color: #1a1a2e; }
+        .feature p { font-size: 0.95em; color: #555; }
+        .section { margin: 50px 0; }
+        .section h2 { color: #1a1a2e; margin-bottom: 16px; font-size: 1.5em; }
+        .section p, .section li { color: #555; margin-bottom: 8px; }
+        .section ul { padding-left: 20px; }
+        footer { background: #f5f5f5; padding: 40px 20px; text-align: center; color: #666; }
+        footer a { color: #0066cc; text-decoration: none; margin: 0 15px; }
+        footer a:hover { text-decoration: underline; }
+        .footer-links { margin-bottom: 20px; }
     </style>
 </head>
 <body>
-    <h1>SciPost</h1>
-    <p>A tool to auto-publish educational and science videos to TikTok for knowledge creators.</p>
-    <div class="links">
-        <a href="terms.html">Terms of Service</a>
-        <a href="privacy.html">Privacy Policy</a>
+    <div class="hero">
+        <h1>SciPost</h1>
+        <p>A tool to auto-publish educational and science videos to TikTok for knowledge creators.</p>
     </div>
+
+    <div class="content">
+        <div class="features">
+            <div class="feature">
+                <div class="icon">&#128218;</div>
+                <h3>Educational Focus</h3>
+                <p>Designed for science and knowledge content creators who want to reach a wider audience.</p>
+            </div>
+            <div class="feature">
+                <div class="icon">&#9889;</div>
+                <h3>Auto Publish</h3>
+                <p>Upload videos to TikTok automatically using the official Content Posting API.</p>
+            </div>
+            <div class="feature">
+                <div class="icon">&#128274;</div>
+                <h3>Secure & Private</h3>
+                <p>OAuth 2.0 authentication. Your data stays on your device, never on our servers.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>How It Works</h2>
+            <ul>
+                <li>Authorize your TikTok account via secure OAuth 2.0 login.</li>
+                <li>Select videos and add descriptions with hashtags.</li>
+                <li>SciPost uploads your videos directly to TikTok through the official API.</li>
+                <li>Track upload progress and publish status in real time.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Data & Privacy</h2>
+            <p>SciPost only accesses the minimum data required: your TikTok profile info and the videos you choose to upload. All authentication tokens are stored locally on your device. We do not store, share, or sell any of your data. You can revoke access at any time from your TikTok account settings.</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="terms.html">Terms of Service</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="mailto:lijiancode@gmail.com">Contact Us</a>
+        </div>
+        <p>&copy; 2026 SciPost. All rights reserved.</p>
+    </footer>
 </body>
 </html>
