@@ -11,24 +11,59 @@
         .card { background: #fff; border-radius: 16px; padding: 48px 40px; text-align: center; box-shadow: 0 2px 20px rgba(0,0,0,0.06); max-width: 460px; }
         h1 { font-size: 1.5em; margin-bottom: 12px; }
         p { color: #555; line-height: 1.6; margin-bottom: 16px; }
+        .status { padding: 12px 20px; border-radius: 8px; margin: 16px 0; font-size: 0.95em; }
+        .success { background: #e8f5e9; color: #2e7d32; }
+        .waiting { background: #fff3e0; color: #e65100; }
+        .fallback { background: #f0f0f5; color: #333; }
         code { background: #f0f0f5; padding: 8px 16px; border-radius: 8px; display: block; margin: 16px 0; word-break: break-all; font-size: 0.85em; color: #333; }
     </style>
 </head>
 <body>
     <div class="card">
-        <h1>Authorization Successful</h1>
-        <p>Copy the authorization code from the URL and paste it into Share Insight to complete the login.</p>
-        <code id="code"></code>
-        <p style="font-size:0.85em; color:#999;">You can close this page.</p>
+        <h1 id="title">Authorizing...</h1>
+        <div id="status" class="status waiting">Sending authorization code to Share Insight...</div>
+        <div id="fallback" style="display:none;">
+            <p>Please copy the code below and paste it into Share Insight:</p>
+            <code id="code"></code>
+        </div>
+        <p style="font-size:0.85em; color:#999;">You can close this page after authorization completes.</p>
     </div>
     <script>
         const params = new URLSearchParams(window.location.search);
         const code = params.get('code');
-        const el = document.getElementById('code');
+        const titleEl = document.getElementById('title');
+        const statusEl = document.getElementById('status');
+        const fallbackEl = document.getElementById('fallback');
+        const codeEl = document.getElementById('code');
+
         if (code) {
-            el.textContent = code;
+            // 尝试发送 code 到本地服务器
+            fetch('http://127.0.0.1:9876/?code=' + encodeURIComponent(code))
+                .then(resp => {
+                    if (resp.ok) {
+                        titleEl.textContent = 'Authorization Successful';
+                        statusEl.className = 'status success';
+                        statusEl.textContent = 'Code sent to Share Insight automatically. You can close this page.';
+                    } else {
+                        showFallback();
+                    }
+                })
+                .catch(() => {
+                    showFallback();
+                });
         } else {
-            el.textContent = 'No authorization code found.';
+            titleEl.textContent = 'Authorization Failed';
+            statusEl.className = 'status';
+            statusEl.style.background = '#ffebee';
+            statusEl.style.color = '#c62828';
+            statusEl.textContent = 'No authorization code received.';
+        }
+
+        function showFallback() {
+            titleEl.textContent = 'Authorization Successful';
+            statusEl.style.display = 'none';
+            fallbackEl.style.display = 'block';
+            codeEl.textContent = code;
         }
     </script>
 </body>
