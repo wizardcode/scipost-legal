@@ -4,66 +4,143 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Share Insight - Educational Video Publisher for TikTok</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #333; line-height: 1.6; }
-        .hero { background: linear-gradient(135deg, #0a0a2e 0%, #1a1a4e 100%); color: #fff; padding: 80px 20px; text-align: center; }
-        .hero h1 { font-size: 2.5em; margin-bottom: 16px; }
-        .hero p { font-size: 1.2em; opacity: 0.9; max-width: 600px; margin: 0 auto; }
-        .content { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin: 40px 0; }
-        .feature { text-align: center; padding: 20px; }
-        .feature .icon { font-size: 2em; margin-bottom: 12px; }
-        .feature h3 { margin-bottom: 8px; color: #1a1a2e; }
-        .feature p { font-size: 0.95em; color: #555; }
-        .section { margin: 50px 0; }
-        .section h2 { color: #1a1a2e; margin-bottom: 16px; font-size: 1.5em; }
-        .section p, .section li { color: #555; margin-bottom: 8px; }
-        .section ul { padding-left: 20px; }
-        footer { background: #f5f5f5; padding: 40px 20px; text-align: center; color: #666; }
-        footer a { color: #0066cc; text-decoration: none; margin: 0 15px; }
-        footer a:hover { text-decoration: underline; }
-        .footer-links { margin-bottom: 20px; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: #1a1a2e; line-height: 1.6; }
+
+        /* Nav */
+        nav { background: rgba(10,10,46,0.95); backdrop-filter: blur(10px); padding: 18px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        nav .brand { color: #fff; font-size: 1.3em; font-weight: 700; text-decoration: none; letter-spacing: -0.5px; }
+        nav .brand span { background: linear-gradient(135deg, #00d2ff, #7b2ff7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        nav .links a { color: rgba(255,255,255,0.8); text-decoration: none; margin-left: 30px; font-size: 0.9em; font-weight: 500; transition: color 0.2s; }
+        nav .links a:hover { color: #fff; }
+
+        /* Hero */
+        .hero { background: linear-gradient(135deg, #0a0a2e 0%, #16213e 50%, #1a1a4e 100%); color: #fff; padding: 120px 20px 100px; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 50%, rgba(0,210,255,0.08) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(123,47,247,0.08) 0%, transparent 50%); }
+        .hero h1 { font-size: 3.2em; font-weight: 700; margin-bottom: 20px; letter-spacing: -1px; position: relative; }
+        .hero h1 span { background: linear-gradient(135deg, #00d2ff, #7b2ff7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.25em; opacity: 0.85; max-width: 550px; margin: 0 auto; position: relative; font-weight: 400; }
+
+        /* Features */
+        .features-section { padding: 80px 20px; background: #f8f9fc; }
+        .features-section h2 { text-align: center; font-size: 2em; margin-bottom: 50px; font-weight: 700; letter-spacing: -0.5px; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; max-width: 960px; margin: 0 auto; }
+        .feature { background: #fff; border-radius: 16px; padding: 36px 28px; text-align: center; box-shadow: 0 2px 20px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s; }
+        .feature:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+        .feature .icon { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8em; }
+        .feature:nth-child(1) .icon { background: linear-gradient(135deg, #e8f4fd, #d0ebff); }
+        .feature:nth-child(2) .icon { background: linear-gradient(135deg, #f0e8fd, #e4d0ff); }
+        .feature:nth-child(3) .icon { background: linear-gradient(135deg, #e8fdf0, #d0ffe4); }
+        .feature h3 { font-size: 1.15em; margin-bottom: 10px; font-weight: 600; }
+        .feature p { font-size: 0.95em; color: #555; line-height: 1.7; }
+
+        /* How it works */
+        .how-section { padding: 80px 20px; max-width: 800px; margin: 0 auto; }
+        .how-section h2 { font-size: 2em; margin-bottom: 40px; text-align: center; font-weight: 700; letter-spacing: -0.5px; }
+        .steps { display: flex; flex-direction: column; gap: 24px; }
+        .step { display: flex; align-items: flex-start; gap: 20px; padding: 24px; border-radius: 12px; background: #f8f9fc; transition: background 0.2s; }
+        .step:hover { background: #eef0f7; }
+        .step-num { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #0a0a2e, #1a1a4e); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1em; flex-shrink: 0; }
+        .step-text h4 { font-size: 1.05em; font-weight: 600; margin-bottom: 4px; }
+        .step-text p { font-size: 0.93em; color: #555; }
+
+        /* Privacy callout */
+        .privacy-section { padding: 60px 20px 80px; }
+        .privacy-card { max-width: 800px; margin: 0 auto; background: linear-gradient(135deg, #0a0a2e, #16213e); border-radius: 20px; padding: 50px 40px; color: #fff; text-align: center; }
+        .privacy-card h2 { font-size: 1.8em; margin-bottom: 16px; font-weight: 700; }
+        .privacy-card p { font-size: 1.05em; opacity: 0.85; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+
+        /* Footer */
+        footer { border-top: 1px solid #eee; padding: 40px 20px; text-align: center; }
+        .footer-links { margin-bottom: 16px; }
+        .footer-links a { color: #555; text-decoration: none; margin: 0 18px; font-size: 0.9em; font-weight: 500; transition: color 0.2s; }
+        .footer-links a:hover { color: #1a1a2e; }
+        footer .copy { color: #999; font-size: 0.85em; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.2em; }
+            .hero p { font-size: 1.05em; }
+            nav { padding: 14px 20px; }
+            nav .links a { margin-left: 16px; }
+            .privacy-card { padding: 36px 24px; }
+        }
     </style>
 </head>
 <body>
+    <nav>
+        <a href="index.html" class="brand"><span>Share Insight</span></a>
+        <div class="links">
+            <a href="terms.html">Terms</a>
+            <a href="privacy.html">Privacy</a>
+        </div>
+    </nav>
+
     <div class="hero">
-        <h1>Share Insight</h1>
-        <p>A tool to auto-publish educational and science videos to TikTok for knowledge creators.</p>
+        <h1>Share <span>Insight</span></h1>
+        <p>Auto-publish educational and science videos to TikTok for knowledge creators.</p>
     </div>
 
-    <div class="content">
+    <div class="features-section">
+        <h2>Why Share Insight</h2>
         <div class="features">
             <div class="feature">
                 <div class="icon">&#128218;</div>
                 <h3>Educational Focus</h3>
-                <p>Designed for science and knowledge content creators who want to reach a wider audience.</p>
+                <p>Built for science and knowledge creators who want to share ideas and reach a wider audience on TikTok.</p>
             </div>
             <div class="feature">
                 <div class="icon">&#9889;</div>
                 <h3>Auto Publish</h3>
-                <p>Upload videos to TikTok automatically using the official Content Posting API.</p>
+                <p>Upload single or batch videos to TikTok automatically through the official Content Posting API.</p>
             </div>
             <div class="feature">
                 <div class="icon">&#128274;</div>
                 <h3>Secure & Private</h3>
-                <p>OAuth 2.0 authentication. Your data stays on your device, never on our servers.</p>
+                <p>OAuth 2.0 authentication. All data stays on your device. We never store your content on our servers.</p>
             </div>
         </div>
+    </div>
 
-        <div class="section">
-            <h2>How It Works</h2>
-            <ul>
-                <li>Authorize your TikTok account via secure OAuth 2.0 login.</li>
-                <li>Select videos and add descriptions with hashtags.</li>
-                <li>Share Insight uploads your videos directly to TikTok through the official API.</li>
-                <li>Track upload progress and publish status in real time.</li>
-            </ul>
+    <div class="how-section">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-text">
+                    <h4>Authorize</h4>
+                    <p>Connect your TikTok account securely via OAuth 2.0 login.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-text">
+                    <h4>Prepare</h4>
+                    <p>Select videos and add descriptions with hashtags and mentions.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                    <h4>Publish</h4>
+                    <p>Share Insight uploads your videos directly to TikTok through the official API.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-text">
+                    <h4>Track</h4>
+                    <p>Monitor upload progress and publish status in real time.</p>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="section">
-            <h2>Data & Privacy</h2>
-            <p>Share Insight only accesses the minimum data required: your TikTok profile info and the videos you choose to upload. All authentication tokens are stored locally on your device. We do not store, share, or sell any of your data. You can revoke access at any time from your TikTok account settings.</p>
+    <div class="privacy-section">
+        <div class="privacy-card">
+            <h2>Your Data, Your Control</h2>
+            <p>Share Insight only accesses the minimum data required: your TikTok profile info and the videos you choose to upload. All tokens are stored locally. We never share, sell, or transfer any of your data. Revoke access anytime from your TikTok settings.</p>
         </div>
     </div>
 
@@ -71,9 +148,9 @@
         <div class="footer-links">
             <a href="terms.html">Terms of Service</a>
             <a href="privacy.html">Privacy Policy</a>
-            <a href="mailto:addenlee@outlook.com">Contact Us</a>
+            <a href="mailto:addenlee@outlook.com">Contact</a>
         </div>
-        <p>&copy; 2026 Share Insight. All rights reserved.</p>
+        <p class="copy">&copy; 2026 Share Insight. All rights reserved.</p>
     </footer>
 </body>
 </html>
