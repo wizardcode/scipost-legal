@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorization Callback - Share Insight</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f8f9fc; color: #1a1a2e; }
+        .card { background: #fff; border-radius: 16px; padding: 48px 40px; text-align: center; box-shadow: 0 2px 20px rgba(0,0,0,0.06); max-width: 460px; }
+        h1 { font-size: 1.5em; margin-bottom: 12px; }
+        p { color: #555; line-height: 1.6; margin-bottom: 16px; }
+        code { background: #f0f0f5; padding: 8px 16px; border-radius: 8px; display: block; margin: 16px 0; word-break: break-all; font-size: 0.85em; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Authorization Successful</h1>
+        <p>Copy the authorization code from the URL and paste it into Share Insight to complete the login.</p>
+        <code id="code"></code>
+        <p style="font-size:0.85em; color:#999;">You can close this page.</p>
+    </div>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        const el = document.getElementById('code');
+        if (code) {
+            el.textContent = code;
+        } else {
+            el.textContent = 'No authorization code found.';
+        }
+    </script>
+</body>
+</html>
